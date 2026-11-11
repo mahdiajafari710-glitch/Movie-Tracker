@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover movies and manage your personal movie collection with Movie Tracker.">
+  <title>Movie Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" data-page-link="dashboard" aria-label="Movie Tracker home">
+        <span class="brand-icon">▶</span>
+        <span>movie<span class="brand-accent">track</span></span>
+      </a>
+
+      <p class="nav-label">MENU</p>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-page-link="dashboard"><span class="nav-icon">⌂</span>Dashboard</button>
+        <button class="nav-link" data-page-link="my-list"><span class="nav-icon">▤</span>My List <span class="nav-count" id="listNavCount">0</span></button>
+        <button class="nav-link" data-page-link="favorites"><span class="nav-icon">♡</span>Favorites</button>
+        <button class="nav-link" data-page-link="explore"><span class="nav-icon">⌕</span>Explore</button>
+      </nav>
+
+      <p class="nav-label about-label">MORE</p>
+      <nav class="main-nav">
+        <button class="nav-link" data-page-link="about"><span class="nav-icon">ⓘ</span>About the app</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-note">
+          <span class="note-spark">✦</span>
+          <p>Your next favorite movie is just one search away.</p>
+        </div>
+        <div class="profile">
+          <div class="avatar">M</div>
+          <div><strong>Movie fan</strong><small>Your collection</small></div>
+          <span class="profile-dots">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-brand" data-page-link="dashboard">▶ <strong>movie<span class="brand-accent">track</span></strong></button>
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="currentPageName">Dashboard</strong></div>
+        <div class="topbar-actions">
+          <button class="icon-button" id="themeToggle" aria-label="Switch color theme" title="Switch theme">☾</button>
+          <div class="top-avatar">M</div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD PAGE -->
+      <section class="page active" id="dashboardPage" data-page="dashboard">
+        <div class="welcome-row">
+          <div>
+            <p class="eyebrow">YOUR PERSONAL CINEMA</p>
+            <h1>Good movies, <span class="gradient-text">good mood.</span></h1>
+            <p class="subheading">Keep your watchlist close and discover something great.</p>
+          </div>
+          <button class="primary-button" data-page-link="explore">＋ Discover movies</button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card stat-blue"><div class="stat-symbol">▣</div><div><span>Movies in my list</span><strong id="dashboardListCount">0</strong><small>Saved for later</small></div></article>
+          <article class="stat-card stat-purple"><div class="stat-symbol">♡</div><div><span>My favorites</span><strong id="dashboardFavCount">0</strong><small>All-time favorites</small></div></article>
+          <article class="stat-card stat-green"><div class="stat-symbol">✓</div><div><span>Watched movies</span><strong id="dashboardWatchedCount">0</strong><small>Marked as watched</small></div></article>
+        </div>
+
+        <section class="content-section">
+          <div class="section-heading">
+            <div><p class="eyebrow">HANDPICKED FOR YOU</p><h2>Popular right now</h2></div>
+            <button class="text-button" data-page-link="explore">Explore all <span>→</span></button>
+          </div>
+          <div class="movie-grid" id="dashboardMovies"></div>
+        </section>
+
+        <section class="content-section lower-section">
+          <div class="section-heading">
+            <div><p class="eyebrow">YOUR COLLECTION</p><h2>Recently added</h2></div>
+            <button class="text-button" data-page-link="my-list">View my list <span>→</span></button>
+          </div>
+          <div class="empty-state compact-empty" id="dashboardRecentEmpty">
+            <div class="empty-icon">▤</div><h3>Your list is ready</h3><p>Search for a movie and add it to your list to see it here.</p>
+            <button class="outline-button" data-page-link="explore">Find a movie</button>
+          </div>
+          <div class="movie-grid" id="dashboardRecent"></div>
+        </section>
+      </section>
+
+      <!-- MY LIST PAGE -->
+      <section class="page" id="my-listPage" data-page="my-list">
+        <div class="page-intro"><p class="eyebrow">YOUR PERSONAL COLLECTION</p><h1>My <span class="gradient-text">List</span></h1><p class="subheading">All the movies you plan to watch or have already seen.</p></div>
+        <div class="toolbar">
+          <div class="filter-tabs" id="listFilters">
+            <button class="filter-tab active" data-filter="all">All movies</button>
+            <button class="filter-tab" data-filter="planned">To watch</button>
+            <button class="filter-tab" data-filter="watched">Watched</button>
+          </div>
+          <span class="result-count" id="listResultCount">0 movies</span>
+        </div>
+        <div class="movie-grid" id="myListMovies"></div>
+        <div class="empty-state" id="myListEmpty"><div class="empty-icon">▤</div><h3>Your list is empty</h3><p>Explore movies and save the ones you want to watch.</p><button class="primary-button" data-page-link="explore">Explore movies</button></div>
+      </section>
+
+      <!-- FAVORITES PAGE -->
+      <section class="page" id="favoritesPage" data-page="favorites">
+        <div class="page-intro"><p class="eyebrow">THE ONES YOU LOVE</p><h1>My <span class="gradient-text">Favorites</span></h1><p class="subheading">A collection of movies worth watching again and again.</p></div>
+        <div class="toolbar"><span class="result-count" id="favoriteResultCount">0 favorites</span></div>
+        <div class="movie-grid" id="favoriteMovies"></div>
+        <div class="empty-state" id="favoritesEmpty"><div class="empty-icon">♡</div><h3>No favorites yet</h3><p>Tap the heart on any movie to keep it in your favorites.</p><button class="primary-button" data-page-link="explore">Find favorites</button></div>
+      </section>
+
+      <!-- EXPLORE PAGE -->
+      <section class="page" id="explorePage" data-page="explore">
+        <div class="page-intro"><p class="eyebrow">FIND YOUR NEXT FAVORITE</p><h1>Explore <span class="gradient-text">movies</span></h1><p class="subheading">Search thousands of movies and discover stories from around the world.</p></div>
+        <form class="search-form" id="searchForm">
+          <span class="search-icon">⌕</span>
+          <input id="searchInput" type="search" placeholder="Search by movie title..." autocomplete="off" aria-label="Search movies">
+          <button class="primary-button" type="submit">Search</button>
+        </form>
+        <div class="explore-tools">
+          <div class="filter-tabs" id="exploreFilters">
+            <button class="filter-tab active" data-category="popular">Popular</button>
+            <button class="filter-tab" data-category="top_rated">Top rated</button>
+            <button class="filter-tab" data-category="now_playing">Now playing</button>
+            <button class="filter-tab" data-category="upcoming">Upcoming</button>
+          </div>
+          <span class="result-count" id="exploreResultCount">Popular movies</span>
+        </div>
+        <div class="status-message" id="apiMessage" role="status">Loading movies…</div>
+        <div class="movie-grid" id="exploreMovies"></div>
+        <div class="load-more-wrap"><button class="outline-button hidden" id="loadMoreButton">Load more movies</button></div>
+      </section>
+
+      <!-- ABOUT PAGE -->
+      <section class="page" id="aboutPage" data-page="about">
+        <div class="about-hero">
+          <div class="about-orb">▶</div>
+          <p class="eyebrow">A LITTLE ABOUT US</p>
+          <h1>Every movie has a story.<br><span class="gradient-text">Keep yours organized.</span></h1>
+          <p class="subheading">Movie Tracker is a simple place to discover films, build a watchlist, and keep the stories you love close.</p>
+        </div>
+        <div class="about-cards">
+          <article class="about-card"><div class="about-card-icon blue">⌕</div><h3>Discover</h3><p>Explore popular, top-rated, now-playing, and upcoming movies using live movie data.</p></article>
+          <article class="about-card"><div class="about-card-icon purple">♡</div><h3>Collect</h3><p>Save movies to your personal list and mark the titles you have already watched.</p></article>
+          <article class="about-card"><div class="about-card-icon green">✦</div><h3>Remember</h3><p>Keep your favorites together and return to the movies that made an impression.</p></article>
+        </div>
+        <div class="about-note"><strong>Made for movie lovers.</strong><p>This learning project is built with HTML, CSS, and JavaScript. Movie information is provided by TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB.</p></div>
+      </section>
+
+      <footer class="footer"><span>© 2026 Movie Tracker</span><span>Made with <b>♥</b> for movie lovers</span></footer>
+    </main>
+  </div>
+
+  <!-- Movie details dialog -->
+  <dialog class="movie-dialog" id="movieDialog">
+    <button class="dialog-close" id="closeDialog" aria-label="Close details">×</button>
+    <div id="movieDetailsContent"></div>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>

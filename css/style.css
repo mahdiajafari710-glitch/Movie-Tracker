@@ -1,0 +1,15 @@
+
+:root {
+  color-scheme: light;
+  --bg: #f5f7ff;
+  --surface: #ffffff;
+  --surface-soft: #f0f2ff;
+  --text: #182044;
+  --muted: #77809f;
+  --line: #e7eafb;
+  --primary: #4569f5;
+  --primary-dark: #3152dc;
+  --purple: #8658ed;
+  --shadow: 0 12px 35px rgba(39, 55, 120, 0.08);
+  --card-shadow: 0 8px 22px rgba(31, 45, 95, 0.08);
+}
